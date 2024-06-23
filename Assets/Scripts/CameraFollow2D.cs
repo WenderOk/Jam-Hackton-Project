@@ -47,8 +47,7 @@ public class CameraFollow2D : MonoBehaviour
 			{
 				target = new Vector3(player.position.x + offset.x, player.position.y + offset.y, transform.position.z);
 			}
-			Vector3 currentPosition = Vector3.Lerp(transform.position, target, damping * Time.deltaTime);
-			transform.position = currentPosition;
+			transform.position = Vector3.Lerp(transform.position, target, damping * Time.deltaTime);
 		}
 	}
 }

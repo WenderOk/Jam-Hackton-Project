@@ -11,17 +11,33 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] private float movementSpeed;
 
     private Rigidbody2D _rigidbody;
+    private Animator _anim;
+    private SpriteRenderer _sr;
     private float _horizontal;
 
     private void Awake() {
         _rigidbody = GetComponent<Rigidbody2D>();
+        _anim = GetComponent<Animator>();
+        _sr = GetComponent<SpriteRenderer>();
     }
 
     private void Update() {
         _horizontal = Input.GetAxisRaw("Horizontal");
+        SetAnimatorParameters();
+        Flip();
     }
     private void FixedUpdate() {
-        _rigidbody.velocity = new Vector2(_horizontal * this.movementSpeed, _rigidbody.velocity.y);
+        //_rigidbody.velocity = new Vector2(_horizontal * this.movementSpeed, _rigidbody.velocity.y);
+        _rigidbody.AddForce(transform.right*_horizontal * this.movementSpeed, ForceMode2D.Impulse);
+    }
+    private void SetAnimatorParameters()
+    {
+        _anim.SetFloat("MoveX", Mathf.Abs(_horizontal));
+    }
+    void Flip()
+    {
+        if(_horizontal<0) {_sr.flipX=true;}
+        else if(_horizontal>0){_sr.flipX=false;}
     }
 
     // void FixedUpdate()

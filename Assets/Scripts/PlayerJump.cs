@@ -28,12 +28,14 @@ public class PlayerJump : MonoBehaviour {
     private float _normalGravityScale;
 
     private Rigidbody2D _rigidbody;
+    private Animator _anim;
     private LayerMask _groundLayer;
 
     private void Awake() {
         _rigidbody = GetComponent<Rigidbody2D>();
         _groundLayer = LayerMask.GetMask("Ground");
         _normalGravityScale = _rigidbody.gravityScale;
+        _anim = GetComponent<Animator>();
     }
 
     private void Update() {
@@ -65,6 +67,8 @@ public class PlayerJump : MonoBehaviour {
 
         if (_rigidbody.velocity.y < 0f)
             _rigidbody.gravityScale = this.fallGravityScale;
+        
+        _anim.SetBool("IsGrounded",IsGrounded());
     }
 
     private bool IsGrounded() =>
