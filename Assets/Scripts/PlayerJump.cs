@@ -67,10 +67,15 @@ public class PlayerJump : MonoBehaviour {
         if (_rigidbody.velocity.y < 0)
             _rigidbody.gravityScale = this.fallGravityScale;
 
-        if (_jumping && Mathf.Abs(_rigidbody.velocity.y) <= this.maxApexSpeed) 
+        if (_jumping && Mathf.Abs(_rigidbody.velocity.y) <= this.maxApexSpeed) {
+            _anim.SetBool("Apex", true);
             _rigidbody.gravityScale = ((_rigidbody.velocity.y > 0) ? _normalGravityScale : this.fallGravityScale) * this.apexGravityScaleModifier;
+        }
+        else _anim.SetBool("Apex", false);
+            
                 
         _anim.SetBool("IsGrounded", IsGrounded());
+        _anim.SetBool("Jumping", _jumping);
     }
     private void FixedUpdate() {
         Vector2 velocity = _rigidbody.velocity;
