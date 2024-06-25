@@ -20,12 +20,13 @@ public class PlayerJump : MonoBehaviour {
     private float _jumpBufferTimeLeft;
 
     [SerializeField] private float fallGravityScale;
-
-    [SerializeField] private float lowJumpGravityScale;
-    [SerializeField] private float lowJumpTime;
-    private float _buttonPressedTime;
-    private bool _jumping;
     private float _normalGravityScale;
+
+    [SerializeField] private float maxFallSpeed;
+
+    [SerializeField] private float maxApexSpeed; // максимальная скорость в прыжке при которой уменьшается гравитация
+    [SerializeField] private float apexGravityScaleModifier;
+    private bool _jumping;
 
     private Rigidbody2D _rigidbody;
     private Animator _anim;
@@ -39,8 +40,11 @@ public class PlayerJump : MonoBehaviour {
     }
 
     private void Update() {
-
-        if (IsGrounded()) _coyoteTimeLeft = this.coyoteTime;
+        if (IsGrounded()) {
+            _coyoteTimeLeft = this.coyoteTime;
+            _rigidbody.gravityScale = _normalGravityScale;
+            _jumping = false;
+        }
         else _coyoteTimeLeft -= Time.deltaTime;
 
         if (Input.GetKeyDown(KeyCode.W)) _jumpBufferTimeLeft = this.jumpBufferTime;
@@ -48,27 +52,30 @@ public class PlayerJump : MonoBehaviour {
 
         if (_jumpBufferTimeLeft > 0f && _coyoteTimeLeft > 0f && this.playerStats.stamina >= this.jumpStaminaCost) {
             _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, this.jumpForce);
-            _rigidbody.gravityScale = this._normalGravityScale;
             _jumping = true;
+
             _jumpBufferTimeLeft = 0f;
             this.playerStats.stamina -= this.jumpStaminaCost;
-            _buttonPressedTime = 0f;
         }
 
-        if (_jumping && Input.GetKey(KeyCode.W))
-            _buttonPressedTime += Time.deltaTime;
-
-        if (_jumping && Input.GetKeyUp(KeyCode.W) && _rigidbody.velocity.y > 0f) {
+        if (Input.GetKeyUp(KeyCode.W)) {
             _coyoteTimeLeft = 0f;
-            _jumping = false;
-
-            if (_buttonPressedTime <= lowJumpTime) _rigidbody.gravityScale = this.lowJumpGravityScale;
-        }
-
-        if (_rigidbody.velocity.y < 0f)
             _rigidbody.gravityScale = this.fallGravityScale;
+        }
         
-        _anim.SetBool("IsGrounded",IsGrounded());
+        if (_rigidbody.velocity.y < 0)
+            _rigidbody.gravityScale = this.fallGravityScale;
+
+        if (_jumping && Mathf.Abs(_rigidbody.velocity.y) <= this.maxApexSpeed) 
+            _rigidbody.gravityScale = ((_rigidbody.velocity.y > 0) ? _normalGravityScale : this.fallGravityScale) * this.apexGravityScaleModifier;
+                
+        _anim.SetBool("IsGrounded", IsGrounded());
+    }
+    private void FixedUpdate() {
+        Vector2 velocity = _rigidbody.velocity;
+        if (velocity.y < 0)
+            velocity.y = Mathf.Clamp(velocity.y, -this.maxFallSpeed, 0);
+        _rigidbody.velocity = velocity;
     }
 
     private bool IsGrounded() =>
