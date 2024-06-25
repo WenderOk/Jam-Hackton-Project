@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(Animator), typeof(SpriteRenderer))]
 public class PlayerMovement : MonoBehaviour {
     [SerializeField] private Transform bottom;
 
@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour {
     private void Update() {
         _horizontal = Input.GetAxisRaw("Horizontal");
         
-        _anim.SetFloat("MoveX", Mathf.Abs(_horizontal));
+        _anim.SetFloat("MoveX", Mathf.Abs(_rigidbody.velocity.x));
 
         if (_horizontal < 0) _sr.flipX = true;
         else if (_horizontal > 0) _sr.flipX = false;

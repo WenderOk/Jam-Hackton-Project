@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(Animator))]
 public class PlayerJump : MonoBehaviour {
     [SerializeField] private Transform bottom;
     [SerializeField] private PlayerStats playerStats;
@@ -34,9 +34,10 @@ public class PlayerJump : MonoBehaviour {
 
     private void Awake() {
         _rigidbody = GetComponent<Rigidbody2D>();
+        _anim = GetComponent<Animator>();
+
         _groundLayer = LayerMask.GetMask("Ground");
         _normalGravityScale = _rigidbody.gravityScale;
-        _anim = GetComponent<Animator>();
     }
 
     private void Update() {

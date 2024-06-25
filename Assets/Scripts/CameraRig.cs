@@ -1,42 +1,36 @@
 ﻿using UnityEngine;
+using System;
 
-namespace PlatformerCookbook.Scripts
-{
-    public class CameraRig : MonoBehaviour
-    {
-        public Transform objectToFollow;
-        public float speed;
 
-        private Transform _transform;
+[RequireComponent(typeof(Camera))]
+public class CameraRig : MonoBehaviour {
+    [SerializeField] private Transform objectToFollow;
+    [SerializeField] private float followSpeed;
+    [SerializeField] private float tiltAngle;
+    [SerializeField] private float angleChangeSpeed;
+    [SerializeField] private float centerOffset;
+   
+    private float _horizontal;
+    private void Awake() {
+        this.transform.position = this.objectToFollow.position;
+    }
 
-        private bool _isValid;
+    private void FixedUpdate() {
+        this.transform.position = Vector2.Lerp(
+            this.transform.position,
+            (Vector2)(this.objectToFollow.position) + Vector2.right * _horizontal * centerOffset,
+            this.followSpeed * Time.fixedDeltaTime
+        );
+        this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, -10f);
+    }
         
-        private void Awake()
-        {
-            _isValid = objectToFollow;
-            if (!_isValid)
-            {
-                Debug.LogError("There is no Object To Follow in CameraRig. Please set it.");
-                return;
-            }
-            
-            _transform = transform;
-            _transform.position = objectToFollow.position;
-        }
+    private void Update() {
+        _horizontal = Input.GetAxis("Horizontal");
 
-        private void FixedUpdate()
-        {
-            if(!_isValid) return;
-            _transform.position = Vector3.Lerp(_transform.position, objectToFollow.position, Time.fixedDeltaTime * speed) - Vector3.forward;
-        }
-        
-        private void Update()
-        {
-
-            //float tiltAngle = Input.GetAxis("Horizontal") * 15f;
-            //Quaternion targetRotation = Quaternion.Euler(0, tiltAngle, 0);
-            //transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, speed * Time.deltaTime);
-
-        }
+        this.transform.rotation = Quaternion.Lerp(
+            this.transform.rotation,
+            Quaternion.Euler(Vector3.forward * Input.GetAxis("Horizontal") * tiltAngle),
+            this.angleChangeSpeed * Time.deltaTime
+        );
     }
 }
