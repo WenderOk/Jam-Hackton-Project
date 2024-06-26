@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] private float maxAccelerationModifier;
     [SerializeField] private float maxSpeed;
 
+    [SerializeField] private ParticleSystem steps;
+
     private Rigidbody2D _rigidbody;
     private Animator _anim;
     private SpriteRenderer _sr;
@@ -28,10 +30,13 @@ public class PlayerMovement : MonoBehaviour {
     private void Update() {
         _horizontal = Input.GetAxisRaw("Horizontal");
         
-        _anim.SetFloat("MoveX", Mathf.Abs(_rigidbody.velocity.x));
+        _anim.SetFloat("MoveX", Mathf.Abs( _horizontal));
 
-        if (_horizontal < 0f) _sr.flipX = true;
-        else if (_horizontal > 0f) _sr.flipX = false;
+        if (_horizontal < 0) _sr.flipX = true;
+        else if (_horizontal > 0) _sr.flipX = false;
+
+        if (_horizontal>0) steps.Play();
+        else if (_horizontal==0) steps.Stop(false, ParticleSystemStopBehavior.StopEmitting);
     }
 
     private void FixedUpdate() {

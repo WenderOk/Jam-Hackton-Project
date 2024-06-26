@@ -16,18 +16,22 @@ public class PlayerSlide : MonoBehaviour {
 
     private Rigidbody2D _rigidbody;
     private SpriteRenderer _spriteRenderer;
+    private Animator _anim;
     private bool _grounded;
 
 
     private void Awake() {
         _rigidbody = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _anim = GetComponent<Animator>();
     }
 
     private void Update() {
         _grounded = IsGrounded();
 
         if (!Input.GetKeyDown(KeyCode.LeftShift)) return;
+
+        _anim.SetTrigger("Dash");
 
         if (_grounded && this.playerStats.stamina >= this.groundSlideStaminaCost) {
             _rigidbody.velocity = new Vector2((_spriteRenderer.flipX ? -1f : 1f) * this.slideForce, _rigidbody.velocity.y);

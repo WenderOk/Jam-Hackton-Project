@@ -14,11 +14,13 @@ public class PlayerWallSlide : MonoBehaviour {
     private float _horizontal;
     private Rigidbody2D _rigidbody;
     private SpriteRenderer _spriteRenderer;
+    private Animator _anim;
     private float _rightBaseX;
 
     private void Awake() {
         _rigidbody = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _anim = GetComponent<Animator>();
 
         _rightBaseX = this.right.localPosition.x;
     }
@@ -32,8 +34,9 @@ public class PlayerWallSlide : MonoBehaviour {
     private void FixedUpdate() {
         if (IsWalled() && !IsGrounded() && _horizontal == (_spriteRenderer.flipX ? -1f : 1f)) {
             _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, Mathf.Clamp(_rigidbody.velocity.y, -this.maxWallSlidingSpeed, float.MaxValue));
+            _anim.SetBool("IsSliding", true);
         }
-            
+       else  _anim.SetBool("IsSliding", false);
     }
 
     private bool IsWalled() =>
