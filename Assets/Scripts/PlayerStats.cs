@@ -14,7 +14,7 @@ public class PlayerStats : MonoBehaviour {
     }
 
     public void Update() {
-        this.stamina = Mathf.Clamp(this.stamina + this.staminaRegeneration, 0, this.maxStamina);
+        this.stamina = Mathf.Clamp(this.stamina + this.staminaRegeneration, 0f, this.maxStamina);
     }
 
 }

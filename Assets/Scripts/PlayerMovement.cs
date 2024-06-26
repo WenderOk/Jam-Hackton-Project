@@ -7,6 +7,7 @@ using System;
 [RequireComponent(typeof(Rigidbody2D), typeof(Animator), typeof(SpriteRenderer))]
 public class PlayerMovement : MonoBehaviour {
     [SerializeField] private Transform bottom;
+    [SerializeField] private LayerMask groundLayers;
 
     [SerializeField] private float baseGroundAcceleration;
     [SerializeField] private float baseAirAcceleration;
@@ -17,13 +18,11 @@ public class PlayerMovement : MonoBehaviour {
     private Animator _anim;
     private SpriteRenderer _sr;
     private float _horizontal;
-    private LayerMask _groundLayer;
 
     private void Awake() {
         _rigidbody = GetComponent<Rigidbody2D>();
         _anim = GetComponent<Animator>();
         _sr = GetComponent<SpriteRenderer>();
-        _groundLayer = LayerMask.GetMask("Ground");
     }
 
     private void Update() {
@@ -31,8 +30,8 @@ public class PlayerMovement : MonoBehaviour {
         
         _anim.SetFloat("MoveX", Mathf.Abs(_rigidbody.velocity.x));
 
-        if (_horizontal < 0) _sr.flipX = true;
-        else if (_horizontal > 0) _sr.flipX = false;
+        if (_horizontal < 0f) _sr.flipX = true;
+        else if (_horizontal > 0f) _sr.flipX = false;
     }
 
     private void FixedUpdate() {
@@ -46,5 +45,5 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private bool IsGrounded() =>
-        Physics2D.OverlapCircle(this.bottom.position, 0.1f/*маленькое число*/, _groundLayer);
+        Physics2D.OverlapCircle(this.bottom.position, 0.1f/*маленькое число*/, this.groundLayers);
 }

@@ -106,6 +106,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToFollow: {fileID: 0}
+  right: {fileID: 0}
+  wallLayers:
+    serializedVersion: 2
+    m_Bits: 192
   followSpeed: 1
   tiltAngle: -0.5
   angleChangeSpeed: 1

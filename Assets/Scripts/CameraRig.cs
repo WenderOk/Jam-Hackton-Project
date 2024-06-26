@@ -5,6 +5,9 @@ using System;
 [RequireComponent(typeof(Camera))]
 public class CameraRig : MonoBehaviour {
     [SerializeField] private Transform objectToFollow;
+    [SerializeField] private Transform right;
+    [SerializeField] private LayerMask wallLayers;
+
     [SerializeField] private float followSpeed;
     [SerializeField] private float tiltAngle;
     [SerializeField] private float angleChangeSpeed;
@@ -18,7 +21,7 @@ public class CameraRig : MonoBehaviour {
     private void FixedUpdate() {
         this.transform.position = Vector2.Lerp(
             this.transform.position,
-            (Vector2)(this.objectToFollow.position) + Vector2.right * _horizontal * centerOffset,
+            (Vector2)(this.objectToFollow.position) + (IsWalled() ? Vector2.zero : Vector2.right * _horizontal * centerOffset),
             this.followSpeed * Time.fixedDeltaTime
         );
         this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, -10f);
@@ -33,4 +36,7 @@ public class CameraRig : MonoBehaviour {
             this.angleChangeSpeed * Time.deltaTime
         );
     }
+
+    private bool IsWalled() =>
+        Physics2D.OverlapCircle(this.right.position, 0.1f/*маленькое число*/, this.wallLayers);
 }

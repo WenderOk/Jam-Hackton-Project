@@ -7,6 +7,8 @@ using System;
 [RequireComponent(typeof(Rigidbody2D), typeof(Animator))]
 public class PlayerJump : MonoBehaviour {
     [SerializeField] private Transform bottom;
+    [SerializeField] private LayerMask groundLayers;
+
     [SerializeField] private PlayerStats playerStats;
 
     [SerializeField] private float jumpForce;
@@ -30,13 +32,11 @@ public class PlayerJump : MonoBehaviour {
 
     private Rigidbody2D _rigidbody;
     private Animator _anim;
-    private LayerMask _groundLayer;
 
     private void Awake() {
         _rigidbody = GetComponent<Rigidbody2D>();
         _anim = GetComponent<Animator>();
 
-        _groundLayer = LayerMask.GetMask("Ground");
         _normalGravityScale = _rigidbody.gravityScale;
     }
 
@@ -64,12 +64,12 @@ public class PlayerJump : MonoBehaviour {
             _rigidbody.gravityScale = this.fallGravityScale;
         }
         
-        if (_rigidbody.velocity.y < 0)
+        if (_rigidbody.velocity.y < 0f)
             _rigidbody.gravityScale = this.fallGravityScale;
 
         if (_jumping && Mathf.Abs(_rigidbody.velocity.y) <= this.maxApexSpeed) {
             _anim.SetBool("Apex", true);
-            _rigidbody.gravityScale = ((_rigidbody.velocity.y > 0) ? _normalGravityScale : this.fallGravityScale) * this.apexGravityScaleModifier;
+            _rigidbody.gravityScale = ((_rigidbody.velocity.y > 0f) ? _normalGravityScale : this.fallGravityScale) * this.apexGravityScaleModifier;
         }
         else _anim.SetBool("Apex", false);
             
@@ -78,12 +78,9 @@ public class PlayerJump : MonoBehaviour {
         _anim.SetBool("Jumping", _jumping);
     }
     private void FixedUpdate() {
-        Vector2 velocity = _rigidbody.velocity;
-        if (velocity.y < 0)
-            velocity.y = Mathf.Clamp(velocity.y, -this.maxFallSpeed, 0);
-        _rigidbody.velocity = velocity;
+        _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, Mathf.Clamp(_rigidbody.velocity.y, -this.maxFallSpeed, float.MaxValue));
     }
 
     private bool IsGrounded() =>
-        Physics2D.OverlapCircle(this.bottom.position, 0.1f/*маленькое число*/, _groundLayer);
+        Physics2D.OverlapCircle(this.bottom.position, 0.1f/*маленькое число*/, this.groundLayers);
 }

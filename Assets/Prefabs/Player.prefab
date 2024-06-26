@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &220083652981435573
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 295634260348633551}
+  m_Layer: 0
+  m_Name: Right
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &295634260348633551
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 220083652981435573}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.447, y: -0.614, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 309922463120566179}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1285350325823947956
 GameObject:
   m_ObjectHideFlags: 0
@@ -43,10 +74,12 @@ GameObject:
   - component: {fileID: 2712162868640102129}
   - component: {fileID: 2555669697305955840}
   - component: {fileID: 3561021707636417992}
+  - component: {fileID: 5490911998992729840}
   - component: {fileID: 2630798312975986725}
   - component: {fileID: 4767454514364412267}
   - component: {fileID: 8830517091575725212}
-  - component: {fileID: 5490911998992729840}
+  - component: {fileID: 6148031143627946681}
+  - component: {fileID: 4605604749863559143}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -68,6 +101,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5337473902538296570}
+  - {fileID: 295634260348633551}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2712162868640102129
@@ -184,6 +218,27 @@ CapsuleCollider2D:
   m_Offset: {x: 0.07124066, y: -0.5958309}
   m_Size: {x: 0.75713503, y: 1.2720098}
   m_Direction: 0
+--- !u!95 &5490911998992729840
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2171218143693535053}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a35326ddb426c984e89fc5879b57d20c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &2630798312975986725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,6 +266,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bottom: {fileID: 5337473902538296570}
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 64
   playerStats: {fileID: 2630798312975986725}
   jumpForce: 10
   jumpStaminaCost: 0
@@ -233,28 +291,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bottom: {fileID: 5337473902538296570}
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 64
   baseGroundAcceleration: 2
   baseAirAcceleration: 1.25
   maxAccelerationModifier: 10
   maxSpeed: 15
---- !u!95 &5490911998992729840
-Animator:
-  serializedVersion: 5
+--- !u!114 &6148031143627946681
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2171218143693535053}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a35326ddb426c984e89fc5879b57d20c, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aff65ff2370ef244682fc35018affce5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bottom: {fileID: 5337473902538296570}
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  playerStats: {fileID: 2630798312975986725}
+  slideForce: 15
+  groundSlideStaminaCost: 0
+  airSlideStaminaCost: 0
+--- !u!114 &4605604749863559143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2171218143693535053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91938c366b6d0fc4b883b8097173abe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bottom: {fileID: 5337473902538296570}
+  right: {fileID: 295634260348633551}
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  wallLayers:
+    serializedVersion: 2
+    m_Bits: 192
+  maxWallSlidingSpeed: 1
