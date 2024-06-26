@@ -861,6 +861,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 953d66a505ff8e54f94f5060a06fd040, type: 3}
+--- !u!4 &1317866381 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8002484225268270884, guid: 4f842517d61b0d341a09132354212f69, type: 3}
+  m_PrefabInstance: {fileID: 3331811413988846127}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1456733848 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9076158833722606941, guid: 953d66a505ff8e54f94f5060a06fd040, type: 3}
@@ -1099,11 +1104,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9076158833722606941, guid: 953d66a505ff8e54f94f5060a06fd040, type: 3}
   m_PrefabInstance: {fileID: 630246650}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1726405330 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 295634260348633551, guid: 4f842517d61b0d341a09132354212f69, type: 3}
-  m_PrefabInstance: {fileID: 3331811413988846127}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1728624515 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9076158833722606941, guid: 953d66a505ff8e54f94f5060a06fd040, type: 3}
@@ -1255,9 +1255,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 953d66a505ff8e54f94f5060a06fd040, type: 3}
---- !u!4 &1951327536 stripped
+--- !u!4 &1930084435 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 309922463120566179, guid: 4f842517d61b0d341a09132354212f69, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2945227732422356338, guid: 4f842517d61b0d341a09132354212f69, type: 3}
   m_PrefabInstance: {fileID: 3331811413988846127}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1983116075 stripped
@@ -1514,11 +1514,11 @@ PrefabInstance:
     - target: {fileID: 3828802040430708385, guid: f09d37375bf9f7d4f81e81d486805da9, type: 3}
       propertyPath: right
       value: 
-      objectReference: {fileID: 1726405330}
+      objectReference: {fileID: 1930084435}
     - target: {fileID: 3828802040430708385, guid: f09d37375bf9f7d4f81e81d486805da9, type: 3}
       propertyPath: objectToFollow
       value: 
-      objectReference: {fileID: 1951327536}
+      objectReference: {fileID: 1317866381}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

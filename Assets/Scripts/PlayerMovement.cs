@@ -35,8 +35,8 @@ public class PlayerMovement : MonoBehaviour {
         if (_horizontal < 0) _sr.flipX = true;
         else if (_horizontal > 0) _sr.flipX = false;
 
-        if (_horizontal>0) steps.Play();
-        else if (_horizontal==0) steps.Stop(false, ParticleSystemStopBehavior.StopEmitting);
+        if (IsGrounded() && Mathf.Abs(_rigidbody.velocity.x) > 0)
+            steps.Play();
     }
 
     private void FixedUpdate() {
