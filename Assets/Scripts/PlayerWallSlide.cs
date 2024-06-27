@@ -2,41 +2,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer))]
+[RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer), typeof(Animator))]
 public class PlayerWallSlide : MonoBehaviour {
     [SerializeField] private Transform bottom;
-    [SerializeField] private Transform right;
     [SerializeField] private LayerMask groundLayers;
+
+    [SerializeField] private Transform right;
     [SerializeField] private LayerMask wallLayers;
 
+    [SerializeField] private PlayerStats playerStats;
+
     [SerializeField] private float maxWallSlidingSpeed;
+    [SerializeField] private float wallSlideStaminaCost;
 
     private float _horizontal;
     private Rigidbody2D _rigidbody;
     private SpriteRenderer _spriteRenderer;
     private Animator _anim;
-    private float _rightBaseX;
 
     private void Awake() {
         _rigidbody = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _anim = GetComponent<Animator>();
-
-        _rightBaseX = this.right.localPosition.x;
     }
 
     private void Update() {
         _horizontal = Input.GetAxisRaw("Horizontal");
-
-        this.right.localPosition = new Vector2((_spriteRenderer.flipX ? -1f : 1f) *  _rightBaseX, this.right.localPosition.y);
     }
 
     private void FixedUpdate() {
-        if (IsWalled() && !IsGrounded() && _horizontal == (_spriteRenderer.flipX ? -1f : 1f)) {
+        if (IsWalled() && this.playerStats.stamina >= this.wallSlideStaminaCost && !IsGrounded()
+                && _horizontal == (_spriteRenderer.flipX ? -1f : 1f)) {
             _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, Mathf.Clamp(_rigidbody.velocity.y, -this.maxWallSlidingSpeed, float.MaxValue));
+            this.playerStats.stamina -= this.wallSlideStaminaCost;
             _anim.SetBool("IsSliding", true);
         }
-       else  _anim.SetBool("IsSliding", false);
+        else _anim.SetBool("IsSliding", false);
     }
 
     private bool IsWalled() =>

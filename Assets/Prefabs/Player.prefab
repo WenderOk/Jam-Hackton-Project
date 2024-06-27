@@ -4917,7 +4917,7 @@ Transform:
   m_GameObject: {fileID: 7424861571542454564}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.078, y: -0.495, z: 0.0004646694}
+  m_LocalPosition: {x: -0.078, y: -0.416, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5641,7 +5641,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.29299355
+      value: 0.29299545
       mode: 0
       spread: 0
       speed:
@@ -9794,6 +9794,7 @@ GameObject:
   - component: {fileID: 7188728640541203573}
   - component: {fileID: 3060582444592776366}
   - component: {fileID: 9079932196663066321}
+  - component: {fileID: 618295073883646169}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -9931,8 +9932,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.04}
-  m_Size: {x: 0.44, y: 0.9902388}
+  m_Offset: {x: -0.05714737, y: 0.017773867}
+  m_Size: {x: 0.32570526, y: 0.9415612}
   m_Direction: 0
 --- !u!114 &2087044671504956333
 MonoBehaviour:
@@ -9965,6 +9966,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   playerStats: {fileID: 2087044671504956333}
+  jumpAndLanding: {fileID: 5640225040707946391}
   jumpForce: 10
   jumpStaminaCost: 0
   coyoteTime: 0.2
@@ -9989,6 +9991,7 @@ MonoBehaviour:
   groundLayers:
     serializedVersion: 2
     m_Bits: 64
+  right: {fileID: 2945227732422356338}
   baseGroundAcceleration: 2
   baseAirAcceleration: 1.25
   maxAccelerationModifier: 10
@@ -10048,11 +10051,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bottom: {fileID: 210751156006688355}
-  right: {fileID: 2945227732422356338}
   groundLayers:
     serializedVersion: 2
     m_Bits: 64
+  right: {fileID: 2945227732422356338}
   wallLayers:
     serializedVersion: 2
     m_Bits: 192
+  playerStats: {fileID: 2087044671504956333}
   maxWallSlidingSpeed: 1
+  wallSlideStaminaCost: 0
+--- !u!114 &618295073883646169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8547600438030723725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 008104abeb565334b87df8b46ceb2f03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bottom: {fileID: 210751156006688355}
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  right: {fileID: 2945227732422356338}
+  wallLayers:
+    serializedVersion: 2
+    m_Bits: 192
+  playerStats: {fileID: 2087044671504956333}
+  wallJumpForce: 10
+  wallJumpAngle: 30
+  wallJumpStaminaCost: 0
+  coyoteTime: 0.2
+  fallGravityScale: 3.5
+  maxFallSpeed: 30
+  maxApexSpeed: 0.3
+  apexGravityScaleModifier: 0.75
