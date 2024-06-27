@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour {
     [SerializeField] private float maxStamina;
     [SerializeField] private float staminaRegeneration;
-    [NonSerialized] public float stamina;
+    [SerializeField] private Image staminaBar;
+    //[NonSerialized] 
+    public float stamina;
 
 
     private void Awake() {
@@ -15,6 +18,7 @@ public class PlayerStats : MonoBehaviour {
 
     public void Update() {
         this.stamina = Mathf.Clamp(this.stamina + this.staminaRegeneration, 0f, this.maxStamina);
+        staminaBar.fillAmount = stamina/maxStamina;
     }
 
 }

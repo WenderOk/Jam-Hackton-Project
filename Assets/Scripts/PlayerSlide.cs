@@ -35,19 +35,19 @@ public class PlayerSlide : MonoBehaviour {
 
         if (!Input.GetKeyDown(KeyCode.LeftShift)) return;
 
-        _anim.SetTrigger("Dash");
-
         if (_grounded && this.playerStats.stamina >= this.groundSlideStaminaCost) {
             this.audioSource.clip = this.slideSound;
             this.audioSource.Play();
             _rigidbody.velocity = new Vector2((_spriteRenderer.flipX ? -1f : 1f) * this.slideForce, _rigidbody.velocity.y);
             this.playerStats.stamina -= this.groundSlideStaminaCost;
+            _anim.SetTrigger("Dash");
         }
         if (!_grounded && this.playerStats.stamina >= this.airSlideStaminaCost) {
             this.audioSource.clip = this.slideSound;
             this.audioSource.Play();
             _rigidbody.velocity = new Vector2((_spriteRenderer.flipX ? -1f : 1f) * this.slideForce, _rigidbody.velocity.y);
             this.playerStats.stamina -= this.airSlideStaminaCost;
+            _anim.SetTrigger("Dash");
         }
     }
 
