@@ -16,6 +16,9 @@ public class PlayerMovement : MonoBehaviour {
     // [SerializeField] private Transform downEdge;
     // private float _downEdgetBaseX;
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip[] sounds;
+
     [SerializeField] private float baseGroundAcceleration;
     [SerializeField] private float baseAirAcceleration;
     [SerializeField] private float maxAccelerationModifier;
@@ -37,6 +40,10 @@ public class PlayerMovement : MonoBehaviour {
         _rightBaseX = this.right.localPosition.x;
         // _upEdgeBaseX = this.upEdge.localPosition.x;
         // _downEdgetBaseX = this.downEdge.localPosition.x;
+    }
+
+    public void Step() {
+        this.audioSource.PlayOneShot(this.sounds[UnityEngine.Random.Range(0, this.sounds.Length)]);
     }
 
     private void Update() {

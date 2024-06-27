@@ -13,6 +13,9 @@ public class PlayerWallJump : MonoBehaviour {
 
     [SerializeField] private PlayerStats playerStats;
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip jumpSound;
+
     [SerializeField] private float wallJumpForce;
     [SerializeField] private float wallJumpAngle; // 0 - горизонтально
     [SerializeField] private float wallJumpStaminaCost;
@@ -56,7 +59,10 @@ public class PlayerWallJump : MonoBehaviour {
             );
             _jumping = true;
             _animator.SetTrigger("Jumping");
+            Debug.Log("Wall jump");
             this.playerStats.stamina -= this.wallJumpStaminaCost;
+            this.audioSource.clip = this.jumpSound;
+            this.audioSource.Play();
         }
 
         if (Input.GetKeyUp(KeyCode.W)) {

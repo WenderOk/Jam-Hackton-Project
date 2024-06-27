@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer))]
+[RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer), typeof(Animator))]
 public class PlayerSlide : MonoBehaviour {
     [SerializeField] private Transform bottom;
     [SerializeField] private LayerMask groundLayers;
 
     [SerializeField] private PlayerStats playerStats;
+
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip slideSound;
 
     [SerializeField] private float slideForce;
     [SerializeField] private float groundSlideStaminaCost;
@@ -17,6 +20,7 @@ public class PlayerSlide : MonoBehaviour {
     private Rigidbody2D _rigidbody;
     private SpriteRenderer _spriteRenderer;
     private Animator _anim;
+    
     private bool _grounded;
 
 
@@ -34,10 +38,14 @@ public class PlayerSlide : MonoBehaviour {
         _anim.SetTrigger("Dash");
 
         if (_grounded && this.playerStats.stamina >= this.groundSlideStaminaCost) {
+            this.audioSource.clip = this.slideSound;
+            this.audioSource.Play();
             _rigidbody.velocity = new Vector2((_spriteRenderer.flipX ? -1f : 1f) * this.slideForce, _rigidbody.velocity.y);
             this.playerStats.stamina -= this.groundSlideStaminaCost;
         }
         if (!_grounded && this.playerStats.stamina >= this.airSlideStaminaCost) {
+            this.audioSource.clip = this.slideSound;
+            this.audioSource.Play();
             _rigidbody.velocity = new Vector2((_spriteRenderer.flipX ? -1f : 1f) * this.slideForce, _rigidbody.velocity.y);
             this.playerStats.stamina -= this.airSlideStaminaCost;
         }

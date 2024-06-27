@@ -11,6 +11,10 @@ public class PlayerJump : MonoBehaviour {
 
     [SerializeField] private PlayerStats playerStats;
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip jumpSound;
+    [SerializeField] private AudioClip landingSound;
+
     [SerializeField] private ParticleSystem jumpAndLanding;
 
     [SerializeField] private float jumpForce;
@@ -30,6 +34,7 @@ public class PlayerJump : MonoBehaviour {
     [SerializeField] private float maxApexSpeed; // максимальная скорость в прыжке при которой уменьшается гравитация
     [SerializeField] private float apexGravityScaleModifier;
     private bool _jumping;
+    private bool _falling;
 
     private Rigidbody2D _rigidbody;
     private Animator _anim;
@@ -45,9 +50,13 @@ public class PlayerJump : MonoBehaviour {
         if (IsGrounded()) {
             _coyoteTimeLeft = this.coyoteTime;
             _rigidbody.gravityScale = _normalGravityScale;
-            if (_jumping)
-                jumpAndLanding.Play();
             _jumping = false;
+            if (_falling) {
+                this.audioSource.clip = this.landingSound;
+                this.audioSource.Play();
+                jumpAndLanding.Play();
+            }
+            _falling = false;
         }
         else _coyoteTimeLeft -= Time.deltaTime;
 
@@ -55,6 +64,8 @@ public class PlayerJump : MonoBehaviour {
         else _jumpBufferTimeLeft -= Time.deltaTime;
 
         if (_jumpBufferTimeLeft > 0f && _coyoteTimeLeft > 0f && this.playerStats.stamina >= this.jumpStaminaCost) {
+            this.audioSource.clip = this.jumpSound;
+            this.audioSource.Play();
             _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, this.jumpForce);
             _jumping = true;
             _anim.SetTrigger("Jumping");
@@ -68,8 +79,11 @@ public class PlayerJump : MonoBehaviour {
             _rigidbody.gravityScale = this.fallGravityScale;
         }
         
-        if (_rigidbody.velocity.y < 0f)
+        if (_rigidbody.velocity.y < 0f) {
+            _falling = true;
             _rigidbody.gravityScale = this.fallGravityScale;
+        }
+        else _falling = false;
 
         if (_jumping && Mathf.Abs(_rigidbody.velocity.y) <= this.maxApexSpeed)
             _rigidbody.gravityScale = ((_rigidbody.velocity.y > 0) ? _normalGravityScale : this.fallGravityScale) * this.apexGravityScaleModifier;

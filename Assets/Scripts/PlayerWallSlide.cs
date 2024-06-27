@@ -12,6 +12,9 @@ public class PlayerWallSlide : MonoBehaviour {
 
     [SerializeField] private PlayerStats playerStats;
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip wallSlideSound;
+
     [SerializeField] private float maxWallSlidingSpeed;
     [SerializeField] private float wallSlideStaminaCost;
 
@@ -19,6 +22,8 @@ public class PlayerWallSlide : MonoBehaviour {
     private Rigidbody2D _rigidbody;
     private SpriteRenderer _spriteRenderer;
     private Animator _anim;
+    private bool _soundPlaying;
+    private bool _soundStopped;
 
     private void Awake() {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -35,9 +40,24 @@ public class PlayerWallSlide : MonoBehaviour {
                 && _horizontal == (_spriteRenderer.flipX ? -1f : 1f)) {
             _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, Mathf.Clamp(_rigidbody.velocity.y, -this.maxWallSlidingSpeed, float.MaxValue));
             this.playerStats.stamina -= this.wallSlideStaminaCost;
+            if (!_soundPlaying) {
+                this.audioSource.clip = this.wallSlideSound;
+                this.audioSource.loop = true;
+                this.audioSource.Play();
+                _soundPlaying = true;
+                _soundStopped = false;
+            }
             _anim.SetBool("IsSliding", true);
         }
-        else _anim.SetBool("IsSliding", false);
+        else {
+            if (!_soundStopped) {
+                this.audioSource.loop = false;
+                this.audioSource.Stop();
+                _soundPlaying = false;
+                _soundStopped = true;
+            }
+            _anim.SetBool("IsSliding", false);
+        }
     }
 
     private bool IsWalled() =>
