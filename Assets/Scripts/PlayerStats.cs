@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour {
     [SerializeField] private float maxStamina;
-    [SerializeField] private float staminaRegeneration;
+    public float staminaRegeneration;
     [SerializeField] private Image staminaBar;
     //[NonSerialized] 
     public float stamina;
@@ -17,7 +17,7 @@ public class PlayerStats : MonoBehaviour {
     }
 
     public void Update() {
-        this.stamina = Mathf.Clamp(this.stamina + this.staminaRegeneration, 0f, this.maxStamina);
+        this.stamina = Mathf.Clamp(this.stamina + this.staminaRegeneration*Time.deltaTime, 0f, this.maxStamina);
         staminaBar.fillAmount = stamina/maxStamina;
     }
 

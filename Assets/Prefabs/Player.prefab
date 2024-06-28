@@ -10340,6 +10340,7 @@ GameObject:
   - component: {fileID: 3060582444592776366}
   - component: {fileID: 9079932196663066321}
   - component: {fileID: 618295073883646169}
+  - component: {fileID: 8031383888912312411}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -10611,7 +10612,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxStamina: 100
-  staminaRegeneration: 0.03
+  staminaRegeneration: 10
   staminaBar: {fileID: 6103576825807859798}
   stamina: 0
 --- !u!114 &6593014132611874503
@@ -10753,3 +10754,22 @@ MonoBehaviour:
   maxFallSpeed: 30
   maxApexSpeed: 0.3
   apexGravityScaleModifier: 0.75
+--- !u!114 &8031383888912312411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8547600438030723725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6536de0e7406a254c9d7f92da5d496aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bottom: {fileID: 210751156006688355}
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  playerStats: {fileID: 2087044671504956333}
+  sittingStaminaRegeneration: 30
+  jumpBufferTime: 0.3
