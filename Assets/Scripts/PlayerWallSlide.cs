@@ -39,7 +39,7 @@ public class PlayerWallSlide : MonoBehaviour {
         if (IsWalled() && this.playerStats.stamina >= this.wallSlideStaminaCost && !IsGrounded()
                 && _horizontal == (_spriteRenderer.flipX ? -1f : 1f)) {
             _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, Mathf.Clamp(_rigidbody.velocity.y, -this.maxWallSlidingSpeed, float.MaxValue));
-            this.playerStats.stamina -= this.wallSlideStaminaCost;
+            this.playerStats.stamina -= this.wallSlideStaminaCost * Time.deltaTime;
             if (!_soundPlaying) {
                 this.audioSource.clip = this.wallSlideSound;
                 this.audioSource.loop = true;
