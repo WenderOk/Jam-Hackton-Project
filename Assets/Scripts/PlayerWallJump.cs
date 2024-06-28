@@ -23,6 +23,9 @@ public class PlayerWallJump : MonoBehaviour {
     [SerializeField] private float coyoteTime; // время после отрыва от стены, в течение котого игрок сможет прыгнуть
     private float _coyoteTimeLeft;
 
+    [SerializeField] private float jumpBufferTime;
+    [NonSerialized] public float jumpBufferTimeLeft;
+
     [SerializeField] private float fallGravityScale;
     private float _normalGravityScale;
 
@@ -52,7 +55,10 @@ public class PlayerWallJump : MonoBehaviour {
         }
         else _coyoteTimeLeft -= Time.deltaTime;
 
-        if (!IsGrounded() && Input.GetKeyDown(KeyCode.W) && _coyoteTimeLeft > 0f && this.playerStats.stamina >= this.wallJumpStaminaCost) {
+        if (Input.GetKeyDown(KeyCode.W)) jumpBufferTimeLeft = this.jumpBufferTime;
+        else jumpBufferTimeLeft -= Time.deltaTime;
+
+        if (!IsGrounded() && jumpBufferTimeLeft > 0 && _coyoteTimeLeft > 0f && this.playerStats.stamina >= this.wallJumpStaminaCost) {
             _rigidbody.velocity = new Vector2(
                 (_spriteRenderer.flipX ? 1f : -1f) * this.wallJumpForce * Mathf.Cos(Mathf.Deg2Rad * this.wallJumpAngle),
                 this.wallJumpForce * Mathf.Sin(Mathf.Deg2Rad * this.wallJumpAngle)
@@ -63,6 +69,7 @@ public class PlayerWallJump : MonoBehaviour {
             this.playerStats.stamina -= this.wallJumpStaminaCost;
             this.audioSource.clip = this.jumpSound;
             this.audioSource.Play();
+            jumpBufferTimeLeft = 0;
         }
 
         if (Input.GetKeyUp(KeyCode.W)) {

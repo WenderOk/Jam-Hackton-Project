@@ -30197,6 +30197,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8002484225268270884, guid: 4f842517d61b0d341a09132354212f69, type: 3}
   m_PrefabInstance: {fileID: 1355322202407976987}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &309922464711629564 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 618295073883646169, guid: 4f842517d61b0d341a09132354212f69, type: 3}
+  m_PrefabInstance: {fileID: 1355322202407976987}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 008104abeb565334b87df8b46ceb2f03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1355322202407976987
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30205,6 +30216,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 618295073883646169, guid: 4f842517d61b0d341a09132354212f69, type: 3}
+      propertyPath: wallJumpForce
+      value: 11.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 618295073883646169, guid: 4f842517d61b0d341a09132354212f69, type: 3}
+      propertyPath: jumpBufferTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593014132611874503, guid: 4f842517d61b0d341a09132354212f69, type: 3}
+      propertyPath: playerWallJump
+      value: 
+      objectReference: {fileID: 309922464711629564}
     - target: {fileID: 8002484225268270884, guid: 4f842517d61b0d341a09132354212f69, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.8

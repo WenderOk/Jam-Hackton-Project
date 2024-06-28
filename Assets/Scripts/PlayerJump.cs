@@ -11,6 +11,8 @@ public class PlayerJump : MonoBehaviour {
 
     [SerializeField] private PlayerStats playerStats;
 
+    [SerializeField] private PlayerWallJump playerWallJump;
+
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip jumpSound;
     [SerializeField] private AudioClip landingSound;
@@ -70,6 +72,7 @@ public class PlayerJump : MonoBehaviour {
             _jumping = true;
             _anim.SetTrigger("Jumping");
             _jumpBufferTimeLeft = 0f;
+            playerWallJump.jumpBufferTimeLeft = 0;
             this.playerStats.stamina -= this.jumpStaminaCost;
             jumpAndLanding.Play();
         }
