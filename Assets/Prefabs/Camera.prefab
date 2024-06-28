@@ -110,12 +110,12 @@ MonoBehaviour:
   bottom: {fileID: 0}
   groundLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   right: {fileID: 0}
   wallLayers:
     serializedVersion: 2
     m_Bits: 192
-  followSpeed: 3
+  followSpeed: 1.2
   tiltAngle: -0.5
   angleChangeSpeed: 1
   centerOffset: 7

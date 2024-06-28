@@ -10632,6 +10632,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   playerStats: {fileID: 2087044671504956333}
+  playerWallJump: {fileID: 0}
   audioSource: {fileID: 4234699911153845684}
   jumpSound: {fileID: 8300000, guid: f4b4ef248eb366f4d8d0ddec0cff7790, type: 3}
   landingSound: {fileID: 8300000, guid: 8cda876fd1bb97f488aaff2e2a271846, type: 3}
@@ -10746,10 +10747,11 @@ MonoBehaviour:
   playerStats: {fileID: 2087044671504956333}
   audioSource: {fileID: 4234699911153845684}
   jumpSound: {fileID: 8300000, guid: f4b4ef248eb366f4d8d0ddec0cff7790, type: 3}
-  wallJumpForce: 10
+  wallJumpForce: 11.5
   wallJumpAngle: 45
   wallJumpStaminaCost: 8
   coyoteTime: 0.2
+  jumpBufferTime: 0.2
   fallGravityScale: 3.5
   maxFallSpeed: 30
   maxApexSpeed: 0.3
