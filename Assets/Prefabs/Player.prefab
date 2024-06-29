@@ -10630,9 +10630,9 @@ MonoBehaviour:
   bottom: {fileID: 210751156006688355}
   groundLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 320
   playerStats: {fileID: 2087044671504956333}
-  playerWallJump: {fileID: 0}
+  playerWallJump: {fileID: 618295073883646169}
   audioSource: {fileID: 4234699911153845684}
   jumpSound: {fileID: 8300000, guid: f4b4ef248eb366f4d8d0ddec0cff7790, type: 3}
   landingSound: {fileID: 8300000, guid: 8cda876fd1bb97f488aaff2e2a271846, type: 3}
@@ -10660,7 +10660,7 @@ MonoBehaviour:
   bottom: {fileID: 210751156006688355}
   groundLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 320
   right: {fileID: 2945227732422356338}
   audioSource: {fileID: 4995341481090685870}
   sounds:
@@ -10692,7 +10692,7 @@ MonoBehaviour:
   bottom: {fileID: 210751156006688355}
   groundLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 320
   playerStats: {fileID: 2087044671504956333}
   audioSource: {fileID: 8118913009778483481}
   slideSound: {fileID: 8300000, guid: 4535e982594042b4bb25b885eae7b434, type: 3}
@@ -10714,11 +10714,11 @@ MonoBehaviour:
   bottom: {fileID: 210751156006688355}
   groundLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 320
   right: {fileID: 2945227732422356338}
   wallLayers:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 384
   playerStats: {fileID: 2087044671504956333}
   audioSource: {fileID: 7376006329248153659}
   wallSlideSound: {fileID: 8300000, guid: 916cbbb433fd058498d1b5b826e6ba58, type: 3}
@@ -10739,11 +10739,11 @@ MonoBehaviour:
   bottom: {fileID: 210751156006688355}
   groundLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 320
   right: {fileID: 2945227732422356338}
   wallLayers:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 384
   playerStats: {fileID: 2087044671504956333}
   audioSource: {fileID: 4234699911153845684}
   jumpSound: {fileID: 8300000, guid: f4b4ef248eb366f4d8d0ddec0cff7790, type: 3}
@@ -10771,7 +10771,7 @@ MonoBehaviour:
   bottom: {fileID: 210751156006688355}
   groundLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 320
   playerStats: {fileID: 2087044671504956333}
   sittingStaminaRegeneration: 30
   jumpBufferTime: 0.3
