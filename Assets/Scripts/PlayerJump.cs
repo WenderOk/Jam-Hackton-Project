@@ -13,11 +13,14 @@ public class PlayerJump : MonoBehaviour {
 
     [SerializeField] private PlayerWallJump playerWallJump;
 
-    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioSource audioSource1;
+    [SerializeField] private AudioSource audioSource2;
     [SerializeField] private AudioClip jumpSound;
     [SerializeField] private AudioClip landingSound;
 
     [SerializeField] private ParticleSystem jumpAndLanding;
+
+    [SerializeField] private PlayerMovement playerMovement;
 
     [SerializeField] private float jumpForce;
     [SerializeField] private float jumpStaminaCost;
@@ -41,6 +44,11 @@ public class PlayerJump : MonoBehaviour {
     private Rigidbody2D _rigidbody;
     private Animator _anim;
 
+    [SerializeField] private float noStepAfterLandingTime; // время, в течении которого после приземпления не проигрывается звук ходьбы
+    private float _stepAfterLandingTimeLeft;
+
+    private bool _grounded;
+
     private void Awake() {
         _rigidbody = GetComponent<Rigidbody2D>();
         _anim = GetComponent<Animator>();
@@ -49,25 +57,32 @@ public class PlayerJump : MonoBehaviour {
     }
 
     private void Update() {
-        if (IsGrounded()) {
+        _grounded = IsGrounded();
+        if (_grounded) {
             _coyoteTimeLeft = this.coyoteTime;
             _rigidbody.gravityScale = _normalGravityScale;
             _jumping = false;
             if (_falling) {
-                this.audioSource.clip = this.landingSound;
-                this.audioSource.Play();
-                jumpAndLanding.Play();
+                this.playerMovement.playSound = false;
+                _stepAfterLandingTimeLeft = this.noStepAfterLandingTime;
+                this.audioSource2.clip = this.landingSound;
+                this.audioSource2.Play();
+                this.jumpAndLanding.Play();
             }
             _falling = false;
+            
         }
         else _coyoteTimeLeft -= Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.W)) _jumpBufferTimeLeft = this.jumpBufferTime;
+        _stepAfterLandingTimeLeft -= Time.deltaTime;
+        if (_stepAfterLandingTimeLeft < 0) this.playerMovement.playSound = true;
+
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space)) _jumpBufferTimeLeft = this.jumpBufferTime;
         else _jumpBufferTimeLeft -= Time.deltaTime;
 
         if (_jumpBufferTimeLeft > 0f && _coyoteTimeLeft > 0f && this.playerStats.stamina >= this.jumpStaminaCost) {
-            this.audioSource.clip = this.jumpSound;
-            this.audioSource.Play();
+            this.audioSource1.clip = this.jumpSound;
+            this.audioSource1.Play();
             _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, this.jumpForce);
             _jumping = true;
             _anim.SetTrigger("Jumping");
@@ -77,12 +92,12 @@ public class PlayerJump : MonoBehaviour {
             jumpAndLanding.Play();
         }
 
-        if (Input.GetKeyUp(KeyCode.W)) {
+        if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.Space)) {
             _coyoteTimeLeft = 0f;
             _rigidbody.gravityScale = this.fallGravityScale;
         }
         
-        if (_rigidbody.velocity.y < 0f) {
+        if (_rigidbody.velocity.y < 0f && !_grounded) {
             _falling = true;
             _rigidbody.gravityScale = this.fallGravityScale;
         }
@@ -92,7 +107,7 @@ public class PlayerJump : MonoBehaviour {
             _rigidbody.gravityScale = ((_rigidbody.velocity.y > 0) ? _normalGravityScale : this.fallGravityScale) * this.apexGravityScaleModifier;
         if (_rigidbody.velocity.y <= 0.1f) _anim.SetTrigger("Apex");
 
-        _anim.SetBool("IsGrounded", IsGrounded());
+        _anim.SetBool("IsGrounded", _grounded);
     }
     private void FixedUpdate() {
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, Mathf.Clamp(_rigidbody.velocity.y, -this.maxFallSpeed, float.MaxValue));

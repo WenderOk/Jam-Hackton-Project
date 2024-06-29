@@ -55,7 +55,7 @@ public class PlayerWallJump : MonoBehaviour {
         }
         else _coyoteTimeLeft -= Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.W)) jumpBufferTimeLeft = this.jumpBufferTime;
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space)) jumpBufferTimeLeft = this.jumpBufferTime;
         else jumpBufferTimeLeft -= Time.deltaTime;
 
         if (!IsGrounded() && jumpBufferTimeLeft > 0 && _coyoteTimeLeft > 0f && this.playerStats.stamina >= this.wallJumpStaminaCost) {
@@ -65,14 +65,14 @@ public class PlayerWallJump : MonoBehaviour {
             );
             _jumping = true;
             _animator.SetTrigger("Jumping");
-            Debug.Log("Wall jump");
+            _spriteRenderer.flipX = !_spriteRenderer.flipX;
             this.playerStats.stamina -= this.wallJumpStaminaCost;
             this.audioSource.clip = this.jumpSound;
             this.audioSource.Play();
             jumpBufferTimeLeft = 0;
         }
 
-        if (Input.GetKeyUp(KeyCode.W)) {
+        if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.Space)) {
             _coyoteTimeLeft = 0f;
             _rigidbody.gravityScale = this.fallGravityScale;
         }

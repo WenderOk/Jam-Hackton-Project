@@ -26,6 +26,8 @@ public class PlayerMovement : MonoBehaviour {
 
     [SerializeField] private ParticleSystem steps;
 
+    [NonSerialized] public bool playSound;
+
     private Rigidbody2D _rigidbody;
     private Animator _anim;
     private SpriteRenderer _sr;
@@ -43,7 +45,8 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     public void Step() {
-        this.audioSource.PlayOneShot(this.sounds[UnityEngine.Random.Range(0, this.sounds.Length)]);
+        if (playSound)
+            this.audioSource.PlayOneShot(this.sounds[UnityEngine.Random.Range(0, this.sounds.Length)]);
     }
 
     private void Update() {
