@@ -10515,7 +10515,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -10664,14 +10664,9 @@ MonoBehaviour:
   right: {fileID: 2945227732422356338}
   audioSource: {fileID: 4995341481090685870}
   sounds:
-  - {fileID: 8300000, guid: 6199f6dcf8b53fe479fe4cecc4e4dc0d, type: 3}
-  - {fileID: 8300000, guid: 144ead8f6b3d6914bb0f47520ec1fdc2, type: 3}
-  - {fileID: 8300000, guid: 4d9fae8b6d465c646980bcee68af61af, type: 3}
-  - {fileID: 8300000, guid: bbfb3837447a652418b047486a274f60, type: 3}
-  - {fileID: 8300000, guid: 922781777db12ef4dab3ffa79f443fb1, type: 3}
-  - {fileID: 8300000, guid: 73e7e541a45206c4aa872b936ffe0617, type: 3}
-  - {fileID: 8300000, guid: 2eb2446f7bb62f840a2b66c2f2904cb8, type: 3}
-  - {fileID: 8300000, guid: 4f0b64ed2c8e21241bf416748143ea16, type: 3}
+  - {fileID: 8300000, guid: 1c425113b06fc084dacf0191fdc57fd6, type: 3}
+  - {fileID: 8300000, guid: 6852cadc169d0a04a84506e31fecf15e, type: 3}
+  - {fileID: 8300000, guid: b9647e70794b2564d8e93e3748f74f96, type: 3}
   baseGroundAcceleration: 2
   baseAirAcceleration: 1.25
   maxAccelerationModifier: 10
@@ -10695,7 +10690,7 @@ MonoBehaviour:
     m_Bits: 320
   playerStats: {fileID: 2087044671504956333}
   audioSource: {fileID: 8118913009778483481}
-  slideSound: {fileID: 8300000, guid: 4535e982594042b4bb25b885eae7b434, type: 3}
+  slideSound: {fileID: 8300000, guid: 09c235ab6b33d8a4e9356593ee0798c8, type: 3}
   slideForce: 15
   groundSlideStaminaCost: 10
   airSlideStaminaCost: 15
