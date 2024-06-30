@@ -15,6 +15,7 @@ public class PlayerWallJump : MonoBehaviour {
 
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip jumpSound;
+    [SerializeField] private ParticleSystem wallJumpParticles;
 
     [SerializeField] private float wallJumpForce;
     [SerializeField] private float wallJumpAngle; // 0 - горизонтально
@@ -69,6 +70,7 @@ public class PlayerWallJump : MonoBehaviour {
             this.playerStats.stamina -= this.wallJumpStaminaCost;
             this.audioSource.clip = this.jumpSound;
             this.audioSource.Play();
+            wallJumpParticles.Play();
             jumpBufferTimeLeft = 0;
         }
 

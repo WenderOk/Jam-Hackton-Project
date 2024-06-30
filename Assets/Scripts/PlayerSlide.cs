@@ -12,6 +12,7 @@ public class PlayerSlide : MonoBehaviour {
 
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip slideSound;
+    [SerializeField] private AudioClip rar;
 
     [SerializeField] private float slideForce;
     [SerializeField] private float groundSlideStaminaCost;
@@ -25,6 +26,8 @@ public class PlayerSlide : MonoBehaviour {
 
 
     private void Awake() {
+        //this.audioSource.clip = this.rar;
+        //this.audioSource.Play();
         _rigidbody = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _anim = GetComponent<Animator>();

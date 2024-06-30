@@ -14,6 +14,7 @@ public class PlayerWallSlide : MonoBehaviour {
 
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip wallSlideSound;
+    [SerializeField] private ParticleSystem slidingParticleSys;
 
     [SerializeField] private float maxWallSlidingSpeed;
     [SerializeField] private float wallSlideStaminaCost;
@@ -47,6 +48,7 @@ public class PlayerWallSlide : MonoBehaviour {
                 _soundPlaying = true;
                 _soundStopped = false;
             }
+            slidingParticleSys.Play();
             _anim.SetBool("IsSliding", true);
         }
         else {
